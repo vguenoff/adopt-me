@@ -12,15 +12,6 @@
     <div id="root">not rendered</div>
     <script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
-    <script>
-      const { createElement } = React
-      const { createRoot } = ReactDOM
-
-      // Your code is going to go here
-      const App = () => createElement('div', {}, createElement('h1', {}, 'Adopt Me!'))
-      const root = createRoot(document.getElementById('root'))
-
-      root.render(createElement(App))
-    </script>
+    <script src="./App.js"></script>
   </body>
 </html>
