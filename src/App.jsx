@@ -1,5 +1,7 @@
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+
 const { createElement } = React
-const { createRoot } = ReactDOM
 
 function Pet({ name, animal, breed }) {
   return createElement('div', {}, [
