@@ -1,4 +1,8 @@
-type PetProps = { name: string; animal: string; breed: string }
+type PetProps = {
+  name: string
+  animal: string
+  breed: string
+}
 
 export default function Pet({ name, animal, breed }: PetProps) {
   return (

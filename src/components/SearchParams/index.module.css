@@ -1,0 +1,39 @@
+.searchParams {
+  form {
+    display: flex;
+    flex-direction: column;
+    background: #faeff0;
+    padding: 10px;
+
+    input,
+    button,
+    label {
+      font-size: 18px;
+      border: none;
+    }
+
+    input,
+    button {
+      padding: 10px;
+    }
+
+    input {
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    label {
+      margin-left: 2px;
+    }
+
+    @media only screen and (min-width: 600px) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+
+      input {
+        margin: 10px 20px;
+      }
+    }
+  }
+}
