@@ -1,4 +1,4 @@
-type PetProps = {
+export type PetProps = {
   name: string
   animal: string
   breed: string

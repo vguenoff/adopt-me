@@ -1,6 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './SearchParams.module.css'
 
+import Pet from '@/components/Pet'
+import type { PetProps } from '@/components/Pet'
+
+const API_URL = 'https://pets-v2.dev-apis.com'
 const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile']
 const BREEDS: string[] = []
 
@@ -8,10 +12,32 @@ export default function SearchParams() {
   const [location, setLocation] = useState('')
   const [animal, setAnimal] = useState('')
   const [breed, setBreed] = useState('')
+  const [pets, setPets] = useState([])
+
+  useEffect(() => {
+    requestPets()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  async function requestPets() {
+    const res = await fetch(`${API_URL}/pets?animal=${animal}&location=${location}&breed=${breed}`)
+    const json = await res.json()
+
+    setPets(json.pets)
+  }
 
   return (
     <div className={styles.searchParams}>
-      <form>
+      <form
+        onSubmit={e => {
+          e.preventDefault()
+          setLocation('')
+          setAnimal('')
+          setBreed('')
+
+          requestPets()
+        }}
+      >
         <label htmlFor="location">Location:</label>
         <input
           id="location"
@@ -46,6 +72,9 @@ export default function SearchParams() {
         </select>
         <button>Submit</button>
       </form>
+      {pets.map(({ id, name, animal, breed }: { id: number } & PetProps) => (
+        <Pet key={id} {...{ name, animal, breed }} />
+      ))}
     </div>
   )
 }
