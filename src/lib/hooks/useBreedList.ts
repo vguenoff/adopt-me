@@ -28,7 +28,6 @@ export default function useBreedList(animal: AnimalType) {
     if (!animal) {
       setBreedList([])
     } else if (localCache[animal]) {
-      console.log({ localCache })
       setBreedList(localCache[animal])
     } else {
       requestBreadList()

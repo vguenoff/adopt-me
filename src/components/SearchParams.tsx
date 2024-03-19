@@ -1,31 +1,39 @@
 import { useState, useEffect } from 'react'
 import styles from './SearchParams.module.css'
 
-import Pet from '@/components/Pet'
+import Results from '@/components/Results'
 
 import useBreedList from '@/lib/hooks/useBreedList'
 
-import type { PetProps } from '@/components/Pet'
+import type { PetResponse } from '@/components/Pet'
 import type { AnimalType as AnimalType } from '@/lib/hooks/useBreedList'
 
 import { ANIMALS, API_URL } from '@/lib/constants'
 
-async function requestPets({ animal, breed }: { animal: AnimalType; breed: string }) {
+async function requestPets({
+  animal,
+  location,
+  breed,
+}: {
+  animal: AnimalType
+  location: string
+  breed: string
+}) {
   const res = await fetch(`${API_URL}/pets?animal=${animal}&location=${location}&breed=${breed}`)
   const json = await res.json()
 
-  return json.pets as PetProps[]
+  return json.pets as PetResponse[]
 }
 
 export default function SearchParams() {
   const [location, setLocation] = useState('')
   const [animal, setAnimal] = useState<AnimalType>('')
   const [breed, setBreed] = useState('')
-  const [pets, setPets] = useState<PetProps[]>([])
+  const [pets, setPets] = useState<PetResponse[]>([])
   const [breedList] = useBreedList(animal)
 
   useEffect(() => {
-    requestPets({ animal, breed }).then(pets => setPets(pets))
+    requestPets({ animal, location, breed }).then(pets => setPets(pets))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -37,7 +45,7 @@ export default function SearchParams() {
           setAnimal('')
           setBreed('')
 
-          requestPets({ animal, breed }).then(pets => setPets(pets))
+          requestPets({ animal, location, breed }).then(pets => setPets(pets))
         }}
       >
         <label htmlFor="location">Location:</label>
@@ -74,9 +82,7 @@ export default function SearchParams() {
         </select>
         <button>Submit</button>
       </form>
-      {pets.map(({ id, name, animal, breed }) => (
-        <Pet key={id} {...{ name, animal, breed }} />
-      ))}
+      <Results {...{ pets }} />
     </div>
   )
 }
