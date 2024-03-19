@@ -2,17 +2,20 @@ import { useState, useEffect } from 'react'
 import styles from './SearchParams.module.css'
 
 import Pet from '@/components/Pet'
-import type { PetProps } from '@/components/Pet'
 
-const API_URL = 'https://pets-v2.dev-apis.com'
-const ANIMALS = ['bird', 'cat', 'dog', 'rabbit', 'reptile']
-const BREEDS: string[] = []
+import useBreedList from '@/lib/hooks/useBreedList'
+
+import type { PetProps } from '@/components/Pet'
+import type { AnimalType as AnimalType } from '@/lib/hooks/useBreedList'
+
+import { ANIMALS, API_URL } from '@/lib/constants'
 
 export default function SearchParams() {
   const [location, setLocation] = useState('')
-  const [animal, setAnimal] = useState('')
+  const [animal, setAnimal] = useState<AnimalType>('')
   const [breed, setBreed] = useState('')
   const [pets, setPets] = useState([])
+  const [breedList, status] = useBreedList(animal)
 
   useEffect(() => {
     requestPets()
@@ -50,7 +53,7 @@ export default function SearchParams() {
           id="animal"
           value={animal}
           onChange={e => {
-            setAnimal(e.target.value)
+            setAnimal(e.target.value as AnimalType)
             setBreed('')
           }}
         >
@@ -64,9 +67,9 @@ export default function SearchParams() {
           id="breed"
           value={breed}
           onChange={e => setBreed(e.target.value)}
-          disabled={!BREEDS.length}
+          disabled={!breedList.length}
         >
-          {BREEDS.map(breed => (
+          {breedList.map(breed => (
             <option key={breed}>{breed}</option>
           ))}
         </select>
