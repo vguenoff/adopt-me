@@ -24,6 +24,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "_practice-js"],
+  "include": ["src", "-practice-js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
