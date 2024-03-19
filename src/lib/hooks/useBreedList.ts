@@ -13,15 +13,6 @@ export default function useBreedList(animal: AnimalType) {
   const [status, setStatus] = useState<'unloaded' | 'loading' | 'loaded'>('unloaded')
 
   useEffect(() => {
-    if (!animal) {
-      setBreedList([])
-    } else if (localCache[animal]) {
-      console.log({ localCache })
-      setBreedList(localCache[animal])
-    } else {
-      requestBreadList()
-    }
-
     async function requestBreadList() {
       setBreedList([])
       setStatus('loading')
@@ -32,6 +23,15 @@ export default function useBreedList(animal: AnimalType) {
       localCache[animal] = json.breeds || []
       setBreedList(localCache[animal])
       setStatus('loaded')
+    }
+
+    if (!animal) {
+      setBreedList([])
+    } else if (localCache[animal]) {
+      console.log({ localCache })
+      setBreedList(localCache[animal])
+    } else {
+      requestBreadList()
     }
   }, [animal])
 

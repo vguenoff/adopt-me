@@ -15,7 +15,7 @@ export default function SearchParams() {
   const [animal, setAnimal] = useState<AnimalType>('')
   const [breed, setBreed] = useState('')
   const [pets, setPets] = useState([])
-  const [breedList, status] = useBreedList(animal)
+  const [breedList] = useBreedList(animal)
 
   useEffect(() => {
     requestPets()
