@@ -10,24 +10,23 @@ import type { AnimalType as AnimalType } from '@/lib/hooks/useBreedList'
 
 import { ANIMALS, API_URL } from '@/lib/constants'
 
+async function requestPets({ animal, breed }: { animal: AnimalType; breed: string }) {
+  const res = await fetch(`${API_URL}/pets?animal=${animal}&location=${location}&breed=${breed}`)
+  const json = await res.json()
+
+  return json.pets as PetProps[]
+}
+
 export default function SearchParams() {
   const [location, setLocation] = useState('')
   const [animal, setAnimal] = useState<AnimalType>('')
   const [breed, setBreed] = useState('')
-  const [pets, setPets] = useState([])
+  const [pets, setPets] = useState<PetProps[]>([])
   const [breedList] = useBreedList(animal)
 
   useEffect(() => {
-    requestPets()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  async function requestPets() {
-    const res = await fetch(`${API_URL}/pets?animal=${animal}&location=${location}&breed=${breed}`)
-    const json = await res.json()
-
-    setPets(json.pets)
-  }
+    requestPets({ animal, breed }).then(pets => setPets(pets))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className={styles.searchParams}>
@@ -38,7 +37,7 @@ export default function SearchParams() {
           setAnimal('')
           setBreed('')
 
-          requestPets()
+          requestPets({ animal, breed }).then(pets => setPets(pets))
         }}
       >
         <label htmlFor="location">Location:</label>
@@ -75,7 +74,7 @@ export default function SearchParams() {
         </select>
         <button>Submit</button>
       </form>
-      {pets.map(({ id, name, animal, breed }: { id: number } & PetProps) => (
+      {pets.map(({ id, name, animal, breed }) => (
         <Pet key={id} {...{ name, animal, breed }} />
       ))}
     </div>

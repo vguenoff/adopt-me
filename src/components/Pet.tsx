@@ -1,4 +1,5 @@
 export type PetProps = {
+  id?: number
   name: string
   animal: string
   breed: string
