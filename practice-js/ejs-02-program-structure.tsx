@@ -1,7 +1,7 @@
 // ex-1
-function loopingATriangleBookSolution() {
-  for (let line = '#'; line.length < 8; line += '#') console.log(line)
-}
+// function loopingATriangleBookSolution() {
+//   for (let line = '#'; line.length < 8; line += '#') console.log(line)
+// }
 
 // function loopingATriangle() {
 //   for (let i = 0; i < 7; i += 1) {
@@ -10,16 +10,16 @@ function loopingATriangleBookSolution() {
 // }
 
 // ex-2
-function fizzBuzzBookSolution() {
-  for (let n = 0; n <= 100; n++) {
-    let output = ''
+// function fizzBuzzBookSolution() {
+//   for (let n = 0; n <= 100; n++) {
+//     let output = ''
 
-    if (n % 3 === 0) output += 'Fizz'
-    if (n % 5 === 0) output += 'Buzz'
+//     if (n % 3 === 0) output += 'Fizz'
+//     if (n % 5 === 0) output += 'Buzz'
 
-    console.log(output || n)
-  }
-}
+//     console.log(output || n)
+//   }
+// }
 
 // function fizzBuzz() {
 //   let i = 0
