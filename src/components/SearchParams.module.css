@@ -7,17 +7,20 @@
 
     input,
     button,
-    label {
+    label,
+    select {
       font-size: 18px;
       border: none;
     }
 
     input,
-    button {
+    button,
+    select {
       padding: 10px;
     }
 
-    input {
+    input,
+    select {
       width: 100%;
       margin: 10px 0;
     }
@@ -31,7 +34,8 @@
       justify-content: space-between;
       align-items: baseline;
 
-      input {
+      input,
+      select {
         margin: 10px 20px;
       }
     }
