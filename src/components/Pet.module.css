@@ -1,0 +1,30 @@
+.pet {
+  width: 100%;
+  height: 130px;
+  display: block;
+  margin: 25px 0;
+  border-bottom: #333 1px solid;
+  display: flex;
+
+  h1 {
+    padding-top: 10px;
+    color: #333;
+    margin: 0;
+  }
+
+  h2 {
+    font-weight: normal;
+    font-size: 20px;
+  }
+
+  section {
+    clip-path: circle(50% at 50% 50%);
+    width: 100px;
+    height: 100px;
+    margin: 0px 20px 0px 10px;
+
+    img {
+      width: 100px;
+    }
+  }
+}
